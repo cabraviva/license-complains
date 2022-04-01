@@ -25,7 +25,5 @@ jobs:
         cache: 'npm'
     # Installs npm packages
     - run: npm ci
-    # Intsalls DevDependencies
-    - run: npm i --only=dev
     # Checks for license complains
-    - run: node ./node_modules/license-complains/gh-actions-workflow.js
+    - run: node ./node_modules/license-complains/workflow.js
