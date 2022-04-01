@@ -1,0 +1,24 @@
+{
+  "name": "license-complains",
+  "version": "1.0.0",
+  "description": "License Complains will always watch your dependencies licenses and will notify you if your license complains with the dependency licenses",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/greencoder001/license-complains.git"
+  },
+  "keywords": [
+    "license",
+    "complains",
+    "watcher"
+  ],
+  "author": "greencoder001",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greencoder001/license-complains/issues"
+  },
+  "homepage": "https://github.com/greencoder001/license-complains#readme"
+}
