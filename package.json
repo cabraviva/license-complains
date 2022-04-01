@@ -1,6 +1,6 @@
 {
   "name": "license-complains",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "License Complains will always watch your dependencies licenses and will notify you if your license complains with the dependency licenses",
   "main": "main.js",
   "scripts": {
