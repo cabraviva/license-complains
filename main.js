@@ -135,7 +135,7 @@ function onModuleDirPathsRead (moduleDirPaths, NODEMODULES_PATH, directory, proj
                 }
 
                 if (complainResults.includes(false)) {
-                    break
+                    continue
                 } // at least one license grants permission
                 complains = true // License complain
             } else {
