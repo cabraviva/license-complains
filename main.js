@@ -222,11 +222,14 @@ function check (projectRequirements = defaultProjectRequirements, warnings = tru
 
         const complains = onModuleDirPathsRead(moduleDirPaths, NODEMODULES_PATH, directory, projectRequirements, warnings)
 
+        console.log('\u001B[35m%s\u001B[0m', '------------------------- RESULTS -------------------------')
+
         if (complains) {
-            console.log('Something complains!')
+            console.log('\u001B[35m%s\u001B[0m', 'The project does not comply with the license requirements!')
+            console.log('\u001B[35m%s\u001B[0m', 'Look above for the reasons why the project does not comply with the license requirements!')
             if (exitWithCode) process.exit(1)
         } else {
-            console.log('Everything is ok, no complains detected!')
+            console.log('\u001B[35m%s\u001B[0m', 'Everything is fine, no license complains!')
             if (exitWithCode) process.exit(0)
         }
     }
