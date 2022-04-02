@@ -102,7 +102,10 @@ function checkForComplains (license, pkgName, packageJson, projectRequirements, 
                 complainResults.push(checkForComplains(_license, pkgName, packageJson, projectRequirements, warnings))
             }
 
-            if (complainResults.includes(false)) return false // at least one license grants permission
+            if (complainResults.includes(false)) {
+                if (warnings) console.log('\u001B[36m%s\u001B[0m', `[INFO] ${pkgName} has multiple licenses: ${mllicenses.join(' ,')}, but at least one of them doesn't complain!`)
+                return false
+            } // at least one license grants permission
             return true // License complain
         } else {
             // Unknown license
@@ -135,6 +138,7 @@ function onModuleDirPathsRead (moduleDirPaths, NODEMODULES_PATH, directory, proj
                 }
 
                 if (complainResults.includes(false)) {
+                    if (warnings) console.log('\u001B[36m%s\u001B[0m', `[INFO] ${pkgName} is licensed under ${packageJson.licenses.map(e => e.type).join(', ')}, but at least one of them doesn't complain!`)
                     continue
                 } // at least one license grants permission
                 complains = true // License complain
