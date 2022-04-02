@@ -103,7 +103,7 @@ function checkForComplains (license, pkgName, packageJson, projectRequirements, 
             }
 
             if (complainResults.includes(false)) {
-                if (warnings) console.log('\u001B[36m%s\u001B[0m', `[INFO] ${pkgName} has multiple licenses: ${mllicenses.join(' ,')}, but at least one of them doesn't complain!`)
+                if (warnings) console.log('\u001B[36m%s\u001B[0m', `[INFO] ${pkgName} has multiple licenses: ${mllicenses.join(', ')}, but at least one of them doesn't complain!`)
                 return false
             } // at least one license grants permission
             return true // License complain
