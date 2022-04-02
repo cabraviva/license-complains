@@ -4,6 +4,9 @@ const MAYBE = require('./lib/MAYBE.js')
 const path = require('path')
 var fs = require('fs')
 
+let neededLicense = []
+let nlDeps = []
+
 function isItComplaining (license, pkgName, packageJson, projectRequirements, warnings) {
     // MAYBE && PROBABLY_NOT requirements
     if (license.tradeMarkUse === PROBABLY_NOT && projectRequirements.tradeMarkUse) {
@@ -20,6 +23,16 @@ function isItComplaining (license, pkgName, packageJson, projectRequirements, wa
     }
 
     // Normal requirements
+    if (projectRequirements.isClosedSource && !license.allowsClosedSource) {
+        console.log('\x1b[31m%s\x1b[0m', `[COMPLAIN] ${pkgName} doesn't allow closed-source: ${license.name}`)
+        return true
+    }
+
+    if (license.projectNeedsSameLicense) {
+        neededLicense.push(license.name)
+        nlDeps.push(pkgName)
+    }
+
     if (projectRequirements.commercialUse && !license.commercialUse) {
         console.log('\x1b[31m%s\x1b[0m', `[COMPLAIN] ${pkgName} has a non-commercial license: ${license.name}`)
         return true
@@ -188,6 +201,8 @@ const defaultProjectRequirements = {
 function check (projectRequirements = defaultProjectRequirements, warnings = true, exitWithCode = true, directory = process.cwd()) {
     const NODEMODULES_PATH = path.join(directory, 'node_modules')
     const moduleDirPaths = []
+    neededLicense = []
+    nlDeps = []
 
     const handleReaddirOperation = (err, files) => {
         if (err) throw err
@@ -223,6 +238,10 @@ function check (projectRequirements = defaultProjectRequirements, warnings = tru
         const complains = onModuleDirPathsRead(moduleDirPaths, NODEMODULES_PATH, directory, projectRequirements, warnings)
 
         console.log('\u001B[35m%s\u001B[0m', '-------------------------------------------------- RESULTS --------------------------------------------------')
+
+        if (neededLicense.length >= 1) {
+            console.log('\u001B[36m%s\u001B[0m', 'Some dependencies (' + nlDeps.join(', ') + ') require your entire project to use the following licenses: ' + nlDeps.join(''))
+        }
 
         if (complains) {
             console.log('\u001B[35m%s\u001B[0m', 'The project does not comply with the license requirements!')
